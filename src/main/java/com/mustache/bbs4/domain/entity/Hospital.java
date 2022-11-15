@@ -10,7 +10,6 @@ import javax.persistence.Table;
 @Entity
 @Getter
 @Table(name = "nation_wide_hospitals")
-//hospital이라는 테이블이 아님.
 public class Hospital {
     @Id
     private Integer id;
