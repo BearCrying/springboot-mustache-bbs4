@@ -1,0 +1,12 @@
+여기는 Edit Page 입니다.
+{{#article}}
+    <form action="/articles/{{id}}/update" method="post">
+        <input type="hidden" name="id" value="{{id}}" />
+        <input type="text" name="title" value="{{title}}" />
+        <textarea  rows="3" type="text" class="form-control" row="3"
+                   name="content" value="{{content}}">{{content}}</textarea>
+        <button type="submit" class="btn btn-primary">edit</button>
+    </form>
+    <a href="/articles/{{id}}" class="btn btn-primary">Show</a>
+    <a href="/articles" class="btn btn-primary" >List</a>
+{{/article}}

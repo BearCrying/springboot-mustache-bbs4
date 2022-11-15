@@ -6,18 +6,19 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Table(name = "article") //db에 생성되는 테이블 이름설정
 @NoArgsConstructor
+@Getter
 public class Article {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //db에 아이디 생성을 맡기겠다는 뜻
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String content;
 
-    public Article(String title, String content) {
+    public Article(Long id, String title, String content) {
+        this.id = id;
         this.title = title;
         this.content = content;
     }
+
 }

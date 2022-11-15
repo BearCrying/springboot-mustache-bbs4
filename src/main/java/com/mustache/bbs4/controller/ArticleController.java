@@ -44,7 +44,32 @@ public class ArticleController {
             model.addAttribute("article", optionalArticle.get());
             return "show";
         } else return "error";
+    }
 
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        Optional<Article> optionalArticle = articleRepository.findById(id);
+        log.info(optionalArticle.get().getTitle());
+        if(optionalArticle.isPresent()){
+            System.out.println("성공");
+            model.addAttribute("article", optionalArticle.get());
+            return "edit";
+        }else{
+            return "error";
+        }
+    }
+
+    @PostMapping("{id}/update")
+    public String updateArticle(ArticleDto articleDto, Model model) {
+        Article saveArticle = articleRepository.save(articleDto.toEntity());
+        model.addAttribute("article", saveArticle);
+        return String.format("redirect:/articles/%d" , saveArticle.getId());
+    }
+
+    @GetMapping("{id}/delete")
+    public String deleteById(@PathVariable Long id) {
+        articleRepository.deleteById(id);
+        return "redirect:/articles";
     }
     @PostMapping("")
     public String createArticle(ArticleDto articleDto) { //dto란 데이터 전송을 위한 오브젝트 Entity와는 구분해서 사용하는게좋음
