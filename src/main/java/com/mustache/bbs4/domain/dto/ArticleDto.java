@@ -7,7 +7,6 @@ import lombok.ToString;
 
 @Getter
 @AllArgsConstructor
-@ToString
 public class ArticleDto {
     private Long id;
     private String title;
