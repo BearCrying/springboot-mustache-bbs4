@@ -2,11 +2,13 @@ package com.mustache.bbs4.domain.entity;
 
 import com.mustache.bbs4.domain.dto.ArticleDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
