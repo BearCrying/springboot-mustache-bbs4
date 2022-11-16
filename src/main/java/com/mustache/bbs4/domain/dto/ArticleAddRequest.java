@@ -19,3 +19,4 @@ public class ArticleAddRequest {
         return article;
     }
 }
+

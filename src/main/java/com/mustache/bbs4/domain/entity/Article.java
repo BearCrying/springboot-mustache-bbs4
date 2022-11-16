@@ -10,16 +10,20 @@ import javax.persistence.*;
 
 @Builder
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Table(name = "article")
 public class Article {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String content;
+
+    public Article() {
+
+    }
 
     public static ArticleDto of(Article article) { // article 에서 dto로 보내기
         return new ArticleDto(article.getId(), article.getTitle(), article.getContent());

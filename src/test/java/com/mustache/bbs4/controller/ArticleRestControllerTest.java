@@ -1,5 +1,6 @@
 package com.mustache.bbs4.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mustache.bbs4.domain.dto.ArticleAddRequest;
 import com.mustache.bbs4.domain.dto.ArticleAddResponse;
 import com.mustache.bbs4.domain.dto.ArticleDto;
@@ -15,7 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
-import static org.springframework.http.RequestEntity.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -26,7 +27,8 @@ class ArticleRestControllerTest {
 
     @Autowired
     MockMvc mockMvc; // 서버에 배포하지 않고 테스트용으로 요청 전송, 응답기능 제공해주는 클래스
-
+    @Autowired
+    ObjectMapper objectMapper;
     @MockBean
     ArticleService articleService;
 
@@ -61,14 +63,12 @@ class ArticleRestControllerTest {
 
         mockMvc.perform(post("/api/v1/articles")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(new ArticleAddRequest("제목입니다", "내용입니다.")))
+                        .content(objectMapper.writeValueAsBytes(dto))
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.title").exists())
                 .andExpect(jsonPath("$.content").exists())
                 .andDo(print());
-
-        verify(articleService).add(dto);
     }
 }

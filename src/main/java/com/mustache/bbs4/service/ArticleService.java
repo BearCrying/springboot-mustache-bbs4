@@ -13,9 +13,11 @@ import java.util.Optional;
 @Service
 public class ArticleService {
 
+    private Long id;
+    private String title;
+    private String content;
+
     private final ArticleRepository articleRepository;
-
-
     public ArticleService(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
     }
