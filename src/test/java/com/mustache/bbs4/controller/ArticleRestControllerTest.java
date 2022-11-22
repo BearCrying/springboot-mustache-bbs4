@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ArticleRestControllerTest {
 
     @Autowired
-    MockMvc mockMvc; // 서버에 배포하지 않고 테스트용으로 요청 전송, 응답기능 제공해주는 클래스
+    MockMvc mockMvc; // MockMvc를 주입받아 사용함.
     @Autowired
     ObjectMapper objectMapper;
     @MockBean
@@ -43,8 +43,8 @@ class ArticleRestControllerTest {
 
         int articleId = 1;
         String url = String.format("/api/v1/articles/%d", articleId);
-        mockMvc.perform(get(url))
-                .andExpect(status().isOk())
+        mockMvc.perform(get(url)) //해당 URL에 요청을 해 값을 반환함
+                .andExpect(status().isOk()) //perform에서 발생한 요청에 대한 어떤 응답값을 가져야하는지 지정함.
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.title").exists())
                 .andExpect(jsonPath("$.content").exists())
@@ -57,7 +57,7 @@ class ArticleRestControllerTest {
     @Test
     @DisplayName("글 등록이 잘 되는지")
     void add() throws Exception {
-        ArticleAddRequest dto = new ArticleAddRequest("제목입니다", "내용입니다.");
+        ArticleAddRequest dto = new ArticleAddRequest("제목입니다", "내용입니다."); //entity로 바꾸어줌
 
         given(articleService.add(any())).willReturn(new ArticleAddResponse(1l, dto.getTitle(), dto.getContent()));
 
